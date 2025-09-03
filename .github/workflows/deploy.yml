@@ -3,7 +3,7 @@ name: Deploy to server
 on:
   push:
     branches:
-      - main  # или master, если так у тебя
+      - master  # или master, если так у тебя
 
 jobs:
   build-and-deploy:
