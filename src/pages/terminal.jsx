@@ -61,7 +61,7 @@ const Terminal = () => {
 	const handleTabLogin = () => {
 		if (!tabNumber) return;
 		const login = `1@${tabNumber.trim()}.ru`;
-		console.log('Логин по табельному номеру:', login);
+		console.log('Войти по табельному номеру:', login);
 		doLogin(login);
 	};
 
@@ -69,7 +69,7 @@ const Terminal = () => {
 		const raw = typeof data === 'string' ? data : data?.text;
 		if (raw && raw.trim() !== '') {
 			const login = raw.trim(); // если QR уже содержит email
-			console.log('Логин по QR:', login);
+			console.log('Войти по QR:', login);
 			doLogin(login);
 			setActiveMode(null);
 		} else {
