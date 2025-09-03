@@ -88,14 +88,14 @@ const Terminal = () => {
 					className={activeMode === 'tabNumber' ? 'active' : ''}
 					onClick={() => setActiveMode('tabNumber')}
 				>
-					По табельному номеру
+					по табельному номеру
 				</Button>
 
 				<Button
 					className={activeMode === 'qr' ? 'active' : ''}
 					onClick={() => setActiveMode('qr')}
 				>
-					По QR коду
+					по QR коду
 				</Button>
 			</div>
 
