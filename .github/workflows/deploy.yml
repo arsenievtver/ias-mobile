@@ -1,4 +1,5 @@
-name: Deploy to Server
+# .github/workflows/deploy.yml
+name: Deploy to server
 
 on:
   push:
@@ -6,12 +7,17 @@ on:
       - master
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -19,12 +25,24 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to server
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.5
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          source: "dist/*"
-          target: "/var/www/ias-mobile"
-          strip_components: 1
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            # Создаём папку, если нет
+            mkdir -p /var/www/ias-mobile
+            # Копируем файлы из временной директории Actions в папку
+            rm -rf /var/www/ias-mobile/*
+            # Используем scp из runner для копирования build
+            # Сначала создаём tar локально
+            tar czf /tmp/build.tar.gz -C dist .
+            # Распаковываем на сервер
+            tar xzf /tmp/build.tar.gz -C /var/www/ias-mobile
+            # Устанавливаем права (папка и файлы)
+            chown -R ${{ secrets.SERVER_USER }}:${{ secrets.SERVER_USER }} /var/www/ias-mobile
+            # Перезапускаем Nginx
+            sudo systemctl restart nginx
