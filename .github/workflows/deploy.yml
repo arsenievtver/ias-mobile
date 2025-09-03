@@ -3,7 +3,7 @@ name: Deploy to server
 on:
   push:
     branches:
-      - master  # или master, если так у тебя
+      - master  # ветка, при пуше в которую будет деплой
 
 jobs:
   build-and-deploy:
@@ -33,9 +33,10 @@ jobs:
           port: 22
           source: "dist/*"
           target: "/var/www/ias-mobile"
-          rm: false # не удаляем папку, только перезаписываем содержимое
+          rm: false         # не удаляем папку
+          overwrite: true   # перезаписываем файлы
 
-      - name: Set proper permissions
+      - name: Set proper permissions and restart Nginx
         uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.SERVER_HOST }}
