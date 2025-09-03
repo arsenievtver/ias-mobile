@@ -1,0 +1,63 @@
+.lk-container {
+    padding: 20px;
+    font-family: var(--font_default);
+    color: var(--color_text_default);
+}
+
+.user-info p {
+    margin: 4px 0;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.instruction-card {
+    background-color: var(--color_background_default);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.instruction-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.instruction-card h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.instruction-card p {
+    margin: 4px 0;
+    font-size: 0.95em;
+}
+
+.status {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.status.valid {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status.invalid {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.last-read {
+    font-size: 0.8em;
+    color: #aaa;
+}

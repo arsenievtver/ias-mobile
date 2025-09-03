@@ -1,0 +1,18 @@
+.input {
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--color_text_default);
+    border: 1px solid var(--color_element_border);
+    background: #FFF;
+    box-shadow: 15px 20px 45px 1px rgba(233, 233, 233, 0.25);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.input::placeholder {
+    color: var(--color_text_default_trans);
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+}
