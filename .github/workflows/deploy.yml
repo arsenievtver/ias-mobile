@@ -1,4 +1,4 @@
-name: Deploy to server
+name: Deploy to Server
 
 on:
   push:
@@ -6,17 +6,12 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
 
       - name: Install dependencies
         run: npm install
@@ -24,22 +19,12 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Copy build to server
-        uses: appleboy/scp-action@v0.1.4
+      - name: Deploy to server
+        uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
           source: "dist/*"
           target: "/var/www/ias-mobile"
-
-      - name: Restart Nginx
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
-          script: |
-            sudo systemctl restart nginx
+          strip_components: 1
