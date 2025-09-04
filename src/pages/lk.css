@@ -15,18 +15,27 @@
     margin-top: 20px;
 }
 
-.instruction-card {
+.instruction-wrapper {
     background-color: var(--color_background_default);
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.instruction-card:hover {
+.instruction-wrapper:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+
+.instruction-card {
+
+}
+
+.instruction-card:hover {
+
 }
 
 .instruction-card h3 {
@@ -60,4 +69,10 @@
 .last-read {
     font-size: 0.8em;
     color: #aaa;
+}
+
+.instruction-actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

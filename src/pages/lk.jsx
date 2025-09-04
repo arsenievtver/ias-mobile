@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useUser from '../context/useUser';
-import './lk.css'; // стили страницы
-import {Modal} from '../components/Modal/Modal';
+import './lk.css';
+import { Modal } from '../components/Modal/Modal';
 import PdfViewer from '../components/Pdfviewer/PdfViewer';
+import Button from "../components/button/Button.jsx";
 
 const LK = () => {
+	const navigate = useNavigate();
 	const { user, isLoading, authError } = useUser();
 	const [selectedInstruction, setSelectedInstruction] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,24 +41,43 @@ const LK = () => {
 			<div className="instructions-grid">
 				{user.instructions && user.instructions.length > 0 ? (
 					user.instructions.map((ins) => (
-						<div
-							key={ins.id}
-							className="instruction-card"
-							onClick={() => openInstruction(ins)}
-							title={ins.title}
-						>
-							<h3>{ins.title}</h3>
-							<p>{ins.number}</p>
-							{ins.journal?.last_date_read && (
-								<p className="last-read">
-									Последнее прочтение: {new Date(ins.journal.last_date_read).toLocaleDateString()}
-								</p>
-							)}
-							{ins.journal?.valid ? (
-								<span className="status valid">✅ Действующий</span>
-							) : (
-								<span className="status invalid">⚠️ Просроченный</span>
-							)}
+						<div key={ins.id} className="instruction-wrapper" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '8px', marginBottom: '12px' }}>
+
+							{/* Кликаябельная карточка инструкции */}
+							<div
+								className="instruction-card"
+								onClick={() => openInstruction(ins)}
+								title={ins.title}
+								style={{ cursor: 'pointer', padding: '4px 0' }}
+							>
+								<h3>{ins.title}</h3>
+								<p>{ins.number}</p>
+								{ins.journal?.last_date_read && (
+									<p className="last-read">
+										Последнее прочтение: {new Date(ins.journal.last_date_read).toLocaleDateString()}
+									</p>
+								)}
+								{ins.journal?.valid ? (
+									<span className="status valid">✅ Действует</span>
+								) : (
+									<span className="status invalid">⚠️ Просрочен</span>
+								)}
+							</div>
+
+							{/* Блок кнопок */}
+							<div className="instruction-actions" style={{ marginTop: '8px', display: 'flex', gap: '8px' }}>
+								{ins.is_tests_bind && (
+									<Button onClick={() => navigate(`/test`)}>
+										Пройти тест
+									</Button>
+								)}
+								{ins.is_modules_bind && (
+									<Button onClick={() => navigate(`/education`)}>
+										Пройти обучение
+									</Button>
+								)}
+							</div>
+
 						</div>
 					))
 				) : (
@@ -68,7 +90,9 @@ const LK = () => {
 				{selectedInstruction && (
 					<>
 						<PdfViewer url={selectedInstruction.link} />
-						<button style={{ marginTop: '10px' }}>Ознакомиться</button>
+						<Button style={{ marginTop: '10px' }} onClick={() => closeModal()}>
+							Ознакомиться
+						</Button>
 					</>
 				)}
 			</Modal>
