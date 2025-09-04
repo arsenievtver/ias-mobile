@@ -104,6 +104,8 @@ const Terminal = () => {
 					<h3>Введите Ваш табельный номер:</h3>
 					<InputForm
 						type="number"
+						inputMode="numeric"    // открывает цифровую клавиатуру
+						pattern="[0-9]*"
 						placeholder="Табельный номер"
 						value={tabNumber}
 						onChange={(e) => setTabNumber(e.target.value)}
