@@ -24,6 +24,19 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # Удаляем старый dist на сервере и создаем папку
+      - name: Clean old dist
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            rm -rf /var/www/ias-mobile/dist
+            mkdir -p /var/www/ias-mobile/dist
+
+      # Копируем новый билд
       - name: Copy build to server
         uses: appleboy/scp-action@v0.1.5
         with:
@@ -31,11 +44,11 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
-          source: "dist/*"
+          source: "dist"
           target: "/var/www/ias-mobile"
           overwrite: true
-          strip_components: 1
 
+      # Исправляем права
       - name: Fix permissions for Nginx
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -44,11 +57,11 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           script: |
-            # Файлы должны принадлежать alex-ias, но Nginx должен иметь доступ на чтение
             sudo chown -R alex-ias:alex-ias /var/www/ias-mobile
             sudo find /var/www/ias-mobile -type d -exec chmod 755 {} \;
             sudo find /var/www/ias-mobile -type f -exec chmod 644 {} \;
 
+      # Перезапуск Nginx
       - name: Restart Nginx
         uses: appleboy/ssh-action@v0.1.5
         with:
