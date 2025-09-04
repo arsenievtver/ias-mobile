@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../context/useUser';
 import './lk.css';
-import { Modal } from '../components/Modal/Modal';
-import PdfViewer from '../components/Pdfviewer/PdfViewer';
+import PdfModal from "../components/Pdfviewer/PdfModal.jsx";
 import Button from "../components/button/Button.jsx";
 
 const LK = () => {
@@ -84,18 +83,14 @@ const LK = () => {
 					<p>ЛНА для ознакомлений пока нет.</p>
 				)}
 			</div>
+			<PdfModal
+				isOpen={isModalOpen}
+				onClose={closeModal}
+				url={selectedInstruction?.link}
+			/>
 
-			{/* Модалка с PDF */}
-			<Modal isOpen={isModalOpen} onClose={closeModal}>
-				{selectedInstruction && (
-					<>
-						<PdfViewer url={selectedInstruction.link} />
-						<Button style={{ marginTop: '10px' }} onClick={() => closeModal()}>
-							Ознакомиться
-						</Button>
-					</>
-				)}
-			</Modal>
+
+
 		</div>
 	);
 };

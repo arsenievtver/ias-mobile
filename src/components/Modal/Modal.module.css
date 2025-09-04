@@ -1,29 +1,38 @@
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80%;
+  inset: 0; /* top, right, bottom, left = 0 */
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* прижимаем вниз */
+  align-items: flex-end; /* прижимаем модалку к низу */
   z-index: 9998;
 }
 
 .modal {
   background: #fff;
   width: 97%;
-  max-height: 90%; /* чтобы не занимало весь экран */
+  height: 90vh; /* Модалка занимает почти весь экран */
   padding: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Анимация выезда */
-  transform: translateY(100%);
-  animation: slideUp 0.3s ease-out forwards;
+.modal__body {
+  flex: 1; /* Растягивается на всё доступное пространство */
+  display: flex;
+  min-height: 0; /* Очень важно, чтобы flex-child мог сжиматься */
+}
+
+.modal__body iframe {
+  flex: 1; /* iframe занимает всю высоту родителя */
+  width: 100%;
+  border: none;
+}
+
+.modal__actions {
+  padding-top: 10px;
 }
 
 @keyframes slideUp {
@@ -34,6 +43,7 @@
     transform: translateY(0);
   }
 }
+
 
 .closeBtn {
   position: absolute;
