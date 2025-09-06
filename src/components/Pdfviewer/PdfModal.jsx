@@ -2,6 +2,7 @@ import React from "react";
 import "./PdfModal.css";
 
 const PdfModal = ({ isOpen, onClose, url, actionButton }) => {
+	const modifiedUrl = `${url}#view=FitH`;
 	if (!isOpen || !url) return null;
 
 	return (
@@ -11,7 +12,7 @@ const PdfModal = ({ isOpen, onClose, url, actionButton }) => {
 					✕
 				</button>
 				<div className="modal__body">
-					<iframe src={url} title="PDF Viewer" />
+					<iframe src={modifiedUrl} title="PDF Viewer" />
 				</div>
 				{actionButton && (
 					<div className="modal__actions">
