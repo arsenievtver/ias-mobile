@@ -38,16 +38,16 @@
 
 /* Контейнер для PDF */
 .modal__body {
-    flex: 1; /* занимает всё доступное место */
-    display: flex;
-    min-height: 0; /* важно для flex */
-    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    overflow: auto; /* вместо hidden */
+    -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
 }
 
+
 .modal__body iframe {
-    flex: 1;
     width: 100%;
-    border: none;
+    height: 100%; /* важно задать высоту */
 }
 
 /* Кнопка внизу */
