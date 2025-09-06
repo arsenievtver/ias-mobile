@@ -1,6 +1,6 @@
 .lk-container {
     padding: 20px;
-    font-family: var(--font_default);
+    font-family: var(--font_default) sans-serif;
     color: var(--color_text_default);
 }
 
@@ -11,7 +11,7 @@
 .instructions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
+    gap: 10px;
     margin-top: 20px;
 }
 
@@ -73,6 +73,7 @@
 
 .instruction-actions {
     display: flex;
-    justify-content: space-around;
+    justify-content: start;
     align-items: center;
+    gap: 10px;
 }

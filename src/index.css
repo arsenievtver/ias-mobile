@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 :root {
   --font_default: "Noto Sans", sans-serif;
   --color_text_default: rgba(1, 75, 98, 1);

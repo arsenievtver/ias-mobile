@@ -40,7 +40,7 @@ const LK = () => {
 			<div className="instructions-grid">
 				{user.instructions && user.instructions.length > 0 ? (
 					user.instructions.map((ins) => (
-						<div key={ins.id} className="instruction-wrapper" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '8px', marginBottom: '12px' }}>
+						<div key={ins.id} className="instruction-wrapper" style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '8px' }}>
 
 							{/* Кликаябельная карточка инструкции */}
 							<div
@@ -65,14 +65,14 @@ const LK = () => {
 
 							{/* Блок кнопок */}
 							<div className="instruction-actions" style={{ marginTop: '8px', display: 'flex', gap: '8px' }}>
+								{ins.is_modules_bind && (
+									<Button onClick={() => navigate("/education", { state: { instructionId: ins.id, title: ins.title } })}>
+										Пройти обучение
+									</Button>
+								)}
 								{ins.is_tests_bind && (
 									<Button onClick={() => navigate(`/test`)}>
 										Пройти тест
-									</Button>
-								)}
-								{ins.is_modules_bind && (
-									<Button onClick={() => navigate(`/education`)}>
-										Пройти обучение
 									</Button>
 								)}
 							</div>
@@ -87,6 +87,11 @@ const LK = () => {
 				isOpen={isModalOpen}
 				onClose={closeModal}
 				url={selectedInstruction?.link}
+				actionButton={
+					<Button className="actionBtn" onClick={closeModal}>
+						Ознакомиться
+					</Button>
+				}
 			/>
 
 

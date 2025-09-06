@@ -1,7 +1,7 @@
 import React from "react";
 import "./PdfModal.css";
 
-const PdfModal = ({ isOpen, onClose, url }) => {
+const PdfModal = ({ isOpen, onClose, url, actionButton }) => {
 	if (!isOpen || !url) return null;
 
 	return (
@@ -13,11 +13,11 @@ const PdfModal = ({ isOpen, onClose, url }) => {
 				<div className="modal__body">
 					<iframe src={url} title="PDF Viewer" />
 				</div>
-				<div className="modal__actions">
-					<button className="actionBtn" onClick={onClose}>
-						Ознакомиться
-					</button>
-				</div>
+				{actionButton && (
+					<div className="modal__actions">
+						{actionButton}
+					</div>
+				)}
 			</div>
 		</div>
 	);

@@ -1,0 +1,92 @@
+.education-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--font_default), sans-serif;
+    color: var(--color_text_default);
+    background: var(--color_background_default);
+}
+
+.edu-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.home-icon {
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--color_primary_default);
+    transition: color 0.3s ease;
+}
+
+.home-icon:hover {
+    color: var(--color_primary_default_rgb);
+}
+
+.modules-block {
+    border: 1px solid var(--color_element_border);
+    border-radius: 12px;
+    background: var(--color_background_default);
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.modules-header {
+    padding: 12px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--color_surface_default);
+    border-bottom: 1px solid var(--color_element_border);
+}
+
+.modules-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.module-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--color_element_border);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.module-item:hover {
+    background: rgba(var(--color_primary_default_rgb), 0.05);
+}
+
+.module-left {
+    font-weight: 500;
+}
+
+.module-check {
+    color: var(--color_success_default);
+    font-size: 16px;
+}
+
+.no-modules {
+    padding: 12px 16px;
+    font-style: italic;
+    color: var(--color_text_default_trans);
+}
+
+.module-failed {
+    color: var(--color_destructive_default, red);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.modules-loading {
+    font-size: 0.9rem;       /* чуть меньше текста списка */
+    font-weight: 400;        /* нормальный вес, не жирный */
+    color: rgba(0, 0, 0, 0.6); /* полупрозрачный черный */
+    text-align: center;      /* по центру */
+    padding: 8px 0;
+}
+
