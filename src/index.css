@@ -23,3 +23,7 @@
   --invalid_element_border: red;
   --invalid_elemen_background: rgba(255, 192, 203, 0.2);
 }
+
+html, body {
+  font-family: var(--font_default), sans-serif;
+}

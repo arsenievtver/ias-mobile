@@ -6,12 +6,14 @@ import QRScanner from '../components/QRscanner/QRScanner';
 import useApi from '../hooks/useApi.hook';
 import useUser from '../context/useUser';
 import { JWT_STORAGE_KEY, loginUrl } from '../helpers/constants';
+import Keyboard from "react-simple-keyboard";
+import "simple-keyboard/build/css/index.css";
 import './terminal.css'
 
 const Terminal = () => {
 	const api = useApi();
 	const navigate = useNavigate();
-	const { loadUser } = useUser(); // доступ к функции загрузки пользователя
+	const { loadUser } = useUser();
 
 	const [activeMode, setActiveMode] = useState(null); // 'tabNumber' | 'qr'
 	const [tabNumber, setTabNumber] = useState('');
@@ -43,12 +45,10 @@ const Terminal = () => {
 
 			localStorage.setItem(JWT_STORAGE_KEY, data.access_token);
 
-			// сразу после логина загружаем данные пользователя
 			await loadUser();
 
 			setMessage(`Успех! Добро пожаловать.`);
-
-			navigate('/lk'); // переход на личный кабинет
+			navigate('/lk');
 		} catch (e) {
 			const errMsg = e.response?.data?.detail || e.response?.data?.message || 'Ошибка авторизации';
 			setMessage(`Ошибка авторизации: ${errMsg}`);
@@ -68,7 +68,7 @@ const Terminal = () => {
 	const handleQRScan = (data) => {
 		const raw = typeof data === 'string' ? data : data?.text;
 		if (raw && raw.trim() !== '') {
-			const login = raw.trim(); // если QR уже содержит email
+			const login = raw.trim();
 			console.log('Войти по QR:', login);
 			doLogin(login);
 			setActiveMode(null);
@@ -103,12 +103,20 @@ const Terminal = () => {
 				<div className="form-block">
 					<h3>Введите Ваш табельный номер:</h3>
 					<InputForm
-						type="number"
-						inputMode="numeric"    // открывает цифровую клавиатуру
-						pattern="[0-9]*"
+						type="text"
 						placeholder="Табельный номер"
 						value={tabNumber}
 						onChange={(e) => setTabNumber(e.target.value)}
+					/>
+					<Keyboard
+						layout={{ default: ["1 2 3", "4 5 6", "7 8 9", "0 {bksp}"] }}
+						display={{ "{bksp}": "⌫" }} // здесь заменяем текст на значок
+						onChange={setTabNumber}
+						onKeyPress={(button) => {
+							if (button === "{bksp}") {
+								setTabNumber(prev => prev.slice(0, -1));
+							}
+						}}
 					/>
 					<Button onClick={handleTabLogin} disabled={busy}>
 						{busy ? 'Входим…' : 'Войти'}
