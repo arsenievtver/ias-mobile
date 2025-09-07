@@ -6,6 +6,8 @@ import useApi from '../hooks/useApi.hook'; // добавлено: минимал
 import './lk.css';
 import PdfModal from "../components/Pdfviewer/PdfModal.jsx";
 import Button from "../components/button/Button.jsx";
+import { FaRunning } from "react-icons/fa";
+
 
 const LK = () => {
 	const navigate = useNavigate();
@@ -98,18 +100,7 @@ const LK = () => {
 	return (
 		<div className="lk-container" style={{ position: "relative" }}>
 			<div className="head-lk">
-				<Button
-					onClick={handleLogout}
-					style={{
-						position: "absolute",
-						top: "10px",
-						left: "10px",
-						background: "#f44336",
-						color: "#fff",
-					}}
-				>
-					◀ Выйти
-				</Button>
+				<FaRunning className="logout-icon" onClick={handleLogout} />
 				<h2>Личный кабинет</h2>
 			</div>
 

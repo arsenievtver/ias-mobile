@@ -108,7 +108,8 @@ const Education = () => {
 
 			<div className="modules-block">
 				<div className="modules-header" onClick={() => setIsOpenList(!isOpenList)}>
-					Модули для обучения {isOpenList ? "▲" : "▼"}
+					<span>Модули для обучения</span>
+					<span>{isOpenList ? "▲" : "▼"}</span>
 				</div>
 
 				{isOpenList && (

@@ -73,7 +73,18 @@
 
 .instruction-actions {
     display: flex;
-    justify-content: start;
+    justify-content: flex-end;
     align-items: center;
     gap: 10px;
+}
+
+.logout-icon {
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--color_primary_default);
+    transition: color 0.3s ease;
+}
+
+.logout-icon:hover {
+    transform: scale(1.1);
 }

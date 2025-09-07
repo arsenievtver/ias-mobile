@@ -34,9 +34,14 @@
 }
 
 .modules-header {
-    padding: 12px 16px;
-    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    font-weight: 600;
     background: var(--color_surface_default);
     border-bottom: 1px solid var(--color_element_border);
 }
