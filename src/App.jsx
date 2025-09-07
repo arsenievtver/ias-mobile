@@ -6,6 +6,7 @@ import Lk from './pages/lk.jsx';
 import Instruction from './pages/instruction.jsx';
 import Education from './pages/education.jsx';
 import Test from './pages/test.jsx';
+import Test_list from "./pages/test_list.jsx";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/instruction" element={<Instruction />} />
                     <Route path="/education" element={<Education />} />
                     <Route path="/test" element={<Test />} />
+                    <Route path="/test_list" element={<Test_list />} />
                 </Routes>
             </UserProvider>
         </Router>

@@ -16,7 +16,13 @@
     user-select: none;
 }
 
-.button:hover {
+.button:hover:not(:disabled) {
     background: var(--color_primary_default);
     color: var(--color_primary_contrast_default);
+}
+
+.button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
 }
