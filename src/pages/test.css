@@ -2,6 +2,7 @@
     font-family: var(--font_default), sans-serif;
     color: var(--color_text_default);
     max-width: 800px;
+    padding: 20px;
     margin: 0 auto;
 }
 
@@ -85,7 +86,6 @@
 
 button {
     display: inline-block;
-    margin-top: 15px;
 }
 
 .button-test-next {

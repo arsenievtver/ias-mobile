@@ -12,7 +12,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 10px;
-    margin-top: 20px;
+
 }
 
 .instruction-wrapper {
@@ -49,11 +49,13 @@
 }
 
 .status {
-    display: inline-block;
-    margin-top: 8px;
+    display: block;         /* занимает всю строку */
+    text-align: right;      /* содержимое прижимается вправо */
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.85em;
+    width: fit-content;     /* чтобы плашка не растягивалась на всю ширину */
+    margin-left: auto;
 }
 
 .status.valid {

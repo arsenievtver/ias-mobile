@@ -1,0 +1,72 @@
+.testlist-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--font_default), sans-serif;
+    color: var(--color_text_default);
+    background: var(--color_background_default);
+}
+
+.testlist-header {
+    margin-bottom: 20px;
+}
+
+.instruction-title {
+    font-size: 0.95em;
+    color: var(--color_text_default_trans);
+}
+
+.tests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 12px;
+}
+
+.test-card {
+    background-color: var(--color_background_default);
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.test-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.test-card h3 {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.test-history {
+    margin-top: 8px;
+    font-size: 0.9em;
+}
+
+.no-history {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: var(--color_text_default_trans);
+}
+
+.testlist-loading {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    padding: 8px 0;
+}
+
+.home-icon {
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--color_primary_default);
+    transition: color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.home-icon:hover {
+    color: var(--color_primary_default_rgb);
+}

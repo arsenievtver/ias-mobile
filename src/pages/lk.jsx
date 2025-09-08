@@ -124,6 +124,11 @@ const LK = () => {
 								title={ins.title}
 								style={{ cursor: 'pointer', padding: '4px 0' }}
 							>
+								{ins.journal?.valid ? (
+									<span className="status valid"> ✅ </span>
+								) : (
+									<span className="status invalid"> ⚠️ Ознакомиться </span>
+								)}
 								<h3>{ins.title}</h3>
 								<p>{ins.number}</p>
 								{ins.journal?.last_date_read && (
@@ -131,11 +136,7 @@ const LK = () => {
 										Последнее прочтение: {new Date(ins.journal.last_date_read).toLocaleDateString()}
 									</p>
 								)}
-								{ins.journal?.valid ? (
-									<span className="status valid"> ✅ Ознакомлен </span>
-								) : (
-									<span className="status invalid"> ⚠️ Ознакомиться </span>
-								)}
+
 							</div>
 
 							{/* Блок кнопок */}
@@ -150,12 +151,14 @@ const LK = () => {
 											}
 										})}
 									>
-										Пройти обучение
+										Обучение
 									</Button>
 								)}
+
+
 								{ins.is_tests_bind && (
 									<Button onClick={() => handleTestClick(ins)}>
-										Пройти тест
+										Тестирование
 									</Button>
 								)}
 							</div>

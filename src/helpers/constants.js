@@ -7,3 +7,4 @@ export const ModulesUpdatePostUrl = (moduleId) => `/training_modules/set_module_
 export const InstructionValidPatchUrl = (instructionId) => `/journals/update_journal/${instructionId}`;
 export const TestListGetUrl = (instructionId) => `/tests/get_tests_instruction/${instructionId}`;
 export const TestGetUrl = (testId) => `/tests/tests/${testId}`;
+export const TestPassPostUrl = (testId) => `/tests/tests/pass/${testId}`;

@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import useApi from "../hooks/useApi.hook";
-import { TestGetUrl } from "../helpers/constants";
+import { TestGetUrl, TestPassPostUrl } from "../helpers/constants";
 import Button from "../components/button/Button.jsx";
 import './test.css'
+import {FaHome} from "react-icons/fa";
 
 const Test = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const api = useApi();
 
-	const testId = location.state?.testId; // <-- достаем из state
+	const testId = location.state?.testId;
 
 	const [loading, setLoading] = useState(true);
 	const [test, setTest] = useState(null);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [selectedAnswer, setSelectedAnswer] = useState(null);
 	const [answersStatus, setAnswersStatus] = useState({});
+	const [userAnswers, setUserAnswers] = useState([]); // сохраняем все ответы
 
 	// Загрузка теста
 	const fetchTest = async () => {
@@ -47,24 +49,60 @@ const Test = () => {
 	const handleAnswerSelect = (key) => {
 		if (selectedAnswer !== null) return;
 		setSelectedAnswer(key);
+
+		// записываем в массив ответов
+		setUserAnswers(prev => [
+			...prev,
+			{ question_id: currentQuestion.id, answer: Number(key) }
+		]);
+
+		// отмечаем правильность
 		setAnswersStatus(prev => ({
 			...prev,
 			[currentQuestion.id]: Number(key) === currentQuestion.correct_answer
 		}));
 	};
 
-	const handleNext = () => {
+	const handleNext = async () => {
+		if (!selectedAnswer) {
+			alert("Выберите один вариант ответа!");
+			return;
+		}
+
 		if (currentIndex < questions.length - 1) {
 			setCurrentIndex(currentIndex + 1);
 			setSelectedAnswer(null);
 		} else {
-			alert("Тест завершен!");
-			navigate("/lk");
+			// Отправка результатов
+			try {
+				const res = await api.post(TestPassPostUrl(testId), {
+					user_answers: userAnswers
+				});
+
+				const result = res.data;
+				const { test_title, rate, passed } = result.additional_data;
+
+				if (passed) {
+					alert(
+						`Тест "${test_title}" успешно пройден! Количество правильных ответов: ${rate}%. Обратитесь в службу охраны труда для подписи протокола.`
+					);
+				} else {
+					alert(
+						`Тест "${test_title}" не пройден! Количество правильных ответов: ${rate}%. Вы можете повторно пройти данный тест.`
+					);
+				}
+			} catch (err) {
+				console.error("Ошибка отправки результатов:", err);
+				alert("Ошибка при отправке результатов. Попробуйте позже.");
+			} finally {
+				navigate("/lk");
+			}
 		}
 	};
 
 	return (
 		<div className="test-container">
+			<FaHome className="home-icon" onClick={() => navigate("/lk")} />
 			<h3>Тест: {test.title}</h3>
 			{test.description && test.description !== "null" && (
 				<p className="test-description">{test.description}</p>
@@ -107,7 +145,6 @@ const Test = () => {
 				<Button
 					className='button-test-next'
 					onClick={handleNext}
-					disabled={!selectedAnswer}  // блокируем кнопку, если нет ответа
 				>
 					{currentIndex < questions.length - 1
 						? "Следующий вопрос"
@@ -119,5 +156,3 @@ const Test = () => {
 };
 
 export default Test;
-
-
